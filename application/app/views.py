@@ -43,6 +43,7 @@ def authorization(request):
             password = form.cleaned_data.get('password')
             if check_user_credentials(login, password):
                 request.session['is_auth'] = True
+                request.session['login'] = login
                 return redirect('home')
             else:
                 error = 'Ошибка авторизации'
@@ -56,5 +57,6 @@ def personal_page(request):
 
 def logout(request):
     del request.session['is_auth']
+    del request.session['login']
     print("LOGOUT:" + str(request.session.get('is_auth')))
-    return redirect('register')
+    return redirect('home')
