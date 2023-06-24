@@ -6,9 +6,14 @@ from .forms import *
 from .models import *
 
 def home(request):
+    print("HOME:" + str(request.session.get('is_auth')))
+
     return render(request, 'home.html')
 
 def register(request):
+    print("REGISTER:" + str(request.session.get('is_auth')))
+
+
     form = RegisterForm()
     error = ''
     if request.method == 'POST':
@@ -27,6 +32,8 @@ def register(request):
     return render(request, 'register.html', context=context)
 
 def authorization(request):
+    print("AUTH:" + str(request.session.get('is_auth')))
+
     form = LoginForm()
     error = ''
     if request.method == 'POST':
@@ -35,12 +42,19 @@ def authorization(request):
             login = form.cleaned_data.get('login')
             password = form.cleaned_data.get('password')
             if check_user_credentials(login, password):
+                request.session['is_auth'] = True
                 return redirect('home')
             else:
                 error = 'Ошибка авторизации'
+                print(error)
 
     context = {'form': form, 'error': error}
     return render(request, 'authorization.html', context=context)
 
 def personal_page(request):
     return render(request, 'personal_page.html')
+
+def logout(request):
+    del request.session['is_auth']
+    print("LOGOUT:" + str(request.session.get('is_auth')))
+    return redirect('register')
