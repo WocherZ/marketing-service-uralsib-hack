@@ -78,15 +78,32 @@
 
   <div class="container">
     <h1>Авторизация</h1>
-    <form action="{% url 'home' %}">
-      <label for="login">Логин</label>
-      <input type="text" id="login" name="login" placeholder="Введите логин">
+      <form method="POST">
+        <div class="form-group">
+          <label for="login" class="form-label">Логин</label>
+          {{ form.login }}
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Пароль:</label>
+          {{ form.password }}
+        </div>
+        <div class="form-group">
+           <input type="submit" value="Войти" class="button">
+        </div>
+        <div class="form-group">
+          {{ error }}
+        </div>
+      </form>
 
-      <label for="password">Пароль</label>
-      <input type="password" id="password" name="password" placeholder="Введите пароль">
+<!--    <form action="{% url 'home' %}">-->
+<!--      <label for="login">Логин</label>-->
+<!--      <input type="text" id="login" name="login" placeholder="Введите логин">-->
 
-      <input type="submit" value="Войти" class="button">
-    </form>
+<!--      <label for="password">Пароль</label>-->
+<!--      <input type="password" id="password" name="password" placeholder="Введите пароль">-->
+
+<!--      <input type="submit" value="Войти" class="button">-->
+<!--    </form>-->
   </div>
 </body>
 </html>
