@@ -10,3 +10,6 @@ def register(request):
 
 def authorization(request):
     return render(request, 'authorization.html')
+
+def personal_page(request):
+    return render(request, 'personal_page.html')
