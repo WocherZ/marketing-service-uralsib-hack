@@ -45,7 +45,20 @@ def authorization(request):
     return render(request, 'authorization.html', context=context)
 
 def personal_page(request):
-    return render(request, 'personal_page.html')
+    form = GetMarketingProductForm()
+    error = ''
+    output = ''
+    if request.method == 'POST':
+        form = GetMarketingProductForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data.get('product_description')
+            # TODO - отправка description в api модели
+            output = "# TODO - здесь будет выход модели"
+        else:
+            error = 'Ошибка заполнения формы'
+
+    context = {'form': form, 'error': error, 'output': output}
+    return render(request, 'personal_page.html', context=context)
 
 def logout(request):
     del request.session['is_auth']

@@ -13,4 +13,5 @@ class LoginForm(forms.Form):
 
 
 class GetMarketingProductForm(forms.Form):
-    product_description = forms.Textarea()
+    # product_description = forms.Textarea(attrs={'placeholder': 'Введите описание продукта'})
+    product_description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Введите описание продукта'}))

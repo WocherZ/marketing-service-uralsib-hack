@@ -95,16 +95,16 @@
 
   <div class="container">
     <h1>Личный кабинет</h1>
-    <form id="descriptionForm">
-      <textarea id="description" name="description" placeholder="Введите описание продукта"></textarea>
+    <form method="POST">
+      {{ form.product_description }}
       <div class="submit-container">
-        <button type="submit" id="submitBtn" class="button">Submit</button>
+        <button type="submit" class="button">Сгенерировать название продукта</button>
       </div>
     </form>
-    <div id="output"></div>
+    <div id="output">
+      {{ output }}
+    </div>
   </div>
 
-
-  <script src="script.js"></script>
 </body>
 </html>
