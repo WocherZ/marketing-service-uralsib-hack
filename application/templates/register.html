@@ -91,10 +91,17 @@
 <body>
   <div class="button-container">
     <a href="{% url 'home' %}" class="button">Главная</a>
+    {% if request.session.is_auth %}
+    <div>
+      <a href="{% url 'personal_page' %}" class="button">Личный кабинет</a>
+      <a href="{% url 'logout' %}" class="button">Выйти</a>
+    </div>
+    {% else %}
     <div>
       <a href="{% url 'authorization' %}" class="button">Авторизация</a>
       <a href="{% url 'register' %}" class="button">Регистрация</a>
     </div>
+    {% endif %}
   </div>
 
   <div class="container">

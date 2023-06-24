@@ -70,10 +70,17 @@
 <body>
   <div class="button-container">
     <a href="{% url 'home' %}" class="button">Главная</a>
+    {% if request.session.is_auth %}
+    <div>
+      <a href="{% url 'personal_page' %}" class="button">Личный кабинет</a>
+      <a href="{% url 'logout' %}" class="button">Выйти</a>
+    </div>
+    {% else %}
     <div>
       <a href="{% url 'authorization' %}" class="button">Авторизация</a>
       <a href="{% url 'register' %}" class="button">Регистрация</a>
     </div>
+    {% endif %}
   </div>
 
   <div class="container">
@@ -95,15 +102,6 @@
         </div>
       </form>
 
-<!--    <form action="{% url 'home' %}">-->
-<!--      <label for="login">Логин</label>-->
-<!--      <input type="text" id="login" name="login" placeholder="Введите логин">-->
-
-<!--      <label for="password">Пароль</label>-->
-<!--      <input type="password" id="password" name="password" placeholder="Введите пароль">-->
-
-<!--      <input type="submit" value="Войти" class="button">-->
-<!--    </form>-->
   </div>
 </body>
 </html>
