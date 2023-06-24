@@ -69,10 +69,10 @@
 </head>
 <body>
   <div class="button-container">
-    <a href="main_page" class="button">Главная</a>
+    <a href="{% url 'home' %}" class="button">Главная</a>
     <div>
-      <a href="authorization" class="button">Авторизация</a>
-      <a href="register" class="button">Регистрация</a>
+      <a href="{% url 'authorization' %}" class="button">Авторизация</a>
+      <a href="{% url 'register' %}" class="button">Регистрация</a>
     </div>
   </div>
 
