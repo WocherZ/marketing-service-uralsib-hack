@@ -55,9 +55,6 @@ def authorization(request):
 def personal_page(request):
     return render(request, 'personal_page.html')
 
-def quit(request):
-    return render(request, 'quit.html')
-
 def logout(request):
     del request.session['is_auth']
     del request.session['login']
