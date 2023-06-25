@@ -13,7 +13,7 @@
     }
 
     .container {
-      max-width: 400px;
+      max-width: 800px;
       margin: 0 auto;
       padding: 40px;
     }
@@ -95,6 +95,9 @@
 
   <div class="container">
     <h1>Личный кабинет</h1>
+    <div id="chatWindow">
+      <div id="chatHistory"></div>   <-- здесь история выводится -->
+    </div>
     <form method="POST">
       {{ form.product_description }}
       <div class="submit-container">
