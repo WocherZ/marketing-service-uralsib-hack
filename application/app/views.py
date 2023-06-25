@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
+import requests
 
 from .forms import *
 from .models import *
@@ -37,6 +38,7 @@ def authorization(request):
             if check_user_credentials(login, password):
                 request.session['is_auth'] = True
                 request.session['login'] = login
+                request.session['group'] = getattr(User.objects.filter(login=login).first(), 'group')
                 return redirect('home')
             else:
                 error = 'Ошибка авторизации'
@@ -44,6 +46,8 @@ def authorization(request):
     context = {'form': form, 'error': error}
     return render(request, 'authorization.html', context=context)
 
+
+API_MODEL_URL = 'localhost:8001'
 def personal_page(request):
     form = GetMarketingProductForm()
     error = ''
@@ -53,6 +57,8 @@ def personal_page(request):
         if form.is_valid():
             description = form.cleaned_data.get('product_description')
             # TODO - отправка description в api модели
+            # response = requests.post(API_MODEL_URL, json={'text': description})
+            # output = response.json().get('json').get('output')
             output = "# TODO - здесь будет выход модели"
         else:
             error = 'Ошибка заполнения формы'
@@ -61,6 +67,10 @@ def personal_page(request):
     return render(request, 'personal_page.html', context=context)
 
 def logout(request):
-    del request.session['is_auth']
-    del request.session['login']
+    try:
+        del request.session['is_auth']
+        del request.session['login']
+        del request.session['group']
+    except Exception:
+        print("Ошибка удалении сессии")
     return redirect('home')

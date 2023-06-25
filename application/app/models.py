@@ -1,4 +1,6 @@
+import datetime
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 USER_GROUPS = (
@@ -29,3 +31,15 @@ def is_exist_login(login):
 def check_user_credentials(login, password):
     user = User.objects.filter(login=login).filter(password=password)
     return user.exists()
+
+
+
+FEEDBACK_CHOICES = (
+    ('LIKE', 'like'),
+    ('DISLIKE', 'dislike')
+)
+class QueryHistory(models.Model):
+    query = models.TextField()
+    output = models.TextField()
+    query_date = models.DateTimeField(default=timezone.now())
+    feedback = models.CharField(max_length=8, choices=FEEDBACK_CHOICES)
