@@ -95,9 +95,15 @@
 
   <div class="container">
     <h1>Личный кабинет</h1>
+
+    {% if request.session.group == 'DEVELOPER' %}
     <div id="chatWindow">
+      {% for %}
       <div id="chatHistory"></div>   <-- здесь история выводится -->
+      {% endfor %}
     </div>
+    {% else %}
+    {% endif %}
     <form method="POST">
       {{ form.product_description }}
       <div class="submit-container">
