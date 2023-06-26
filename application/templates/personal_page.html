@@ -123,7 +123,7 @@
   <div class="container">
     <h1>Личный кабинет</h1>
 
-    {% if request.session.group == 'DEVELOPER' %}
+    {% if request.session.user_group == 'DEVELOPER' %}
     <table>
       <caption>История запросов</caption>
       <tr>
@@ -137,7 +137,13 @@
         <td class="chat-history-cell">{{ row.query }}</td>
         <td class="chat-history-cell">{{ row.output }}</td>
         <td class="chat-history-cell">{{ row.query_date }}</td>
-        <td class="chat-history-cell">{{ row.feedback }}</td>
+        <td class="chat-history-cell">
+          {% if row.feedback %}
+          {{ row.feedback }}
+          {% else %}
+          -
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </table>

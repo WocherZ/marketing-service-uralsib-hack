@@ -33,6 +33,9 @@ def check_user_credentials(login, password):
     return user.exists()
 
 
+def get_group_by_user_login(login):
+    return User.objects.filter(login=login).first().group
+
 
 FEEDBACK_CHOICES = (
     ('LIKE', 'like'),
@@ -42,4 +45,23 @@ class QueryHistory(models.Model):
     query = models.TextField()
     output = models.TextField()
     query_date = models.DateTimeField(default=timezone.now())
-    feedback = models.CharField(max_length=8, choices=FEEDBACK_CHOICES)
+    feedback = models.CharField(max_length=8, choices=FEEDBACK_CHOICES, null=True)
+
+
+def create_query_history_record(query, output):
+    record = QueryHistory(query=query, output=output)
+    record.save()
+
+
+def collect_query_history():
+    all_history = []
+    records = QueryHistory.objects.all()
+    for record in records:
+        all_history.append({
+            'query': record.query,
+            'output': record.output,
+            'query_date': record.query_date,
+            'feedback': record.feedback
+        })
+    return all_history
+

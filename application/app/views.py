@@ -38,7 +38,7 @@ def authorization(request):
             if check_user_credentials(login, password):
                 request.session['is_auth'] = True
                 request.session['login'] = login
-                request.session['group'] = getattr(User.objects.filter(login=login).first(), 'group')
+                request.session['user_group'] = get_group_by_user_login(login)
                 return redirect('home')
             else:
                 error = 'Ошибка авторизации'
@@ -60,33 +60,36 @@ def personal_page(request):
             # response = requests.post(API_MODEL_URL, json={'text': description})
             # output = response.json().get('json').get('output')
             output = "# TODO - здесь будет выход модели"
+            create_query_history_record(description, output)
         else:
             error = 'Ошибка заполнения формы'
 
     context = {'form': form, 'error': error, 'output': output}
 
     # добавил для отладки
-    data = [
-        {
-            'query': 'Инвестиционный фонд с разнообразным портфелем активов, включающим акции, облигации, сырьевые товары и криптовалюты. Фонд предлагает высокую степень диверсификации и потенциал роста в различных секторах экономики.',
-            'output': 'Инвестиционный фонд с разнообразным портфелем активов и потенциалом роста.',
-            'query_date': '2023-06-25',
-            'feedback': 'True'
-        },
-        {
-            'query': 'Second query',
-            'output': 'Second output',
-            'query_date': '2023-06-26',
-            'feedback': 'Second feedback'
-        },
-        {
-            'query': 'Third query',
-            'output': 'Third output',
-            'query_date': '2023-06-27',
-            'feedback': 'Third feedback'
-        }
-    ]
-    context['data'] = data
+    # data = [
+    #     {
+    #         'query': 'Инвестиционный фонд с разнообразным портфелем активов, включающим акции, облигации, сырьевые товары и криптовалюты. Фонд предлагает высокую степень диверсификации и потенциал роста в различных секторах экономики.',
+    #         'output': 'Инвестиционный фонд с разнообразным портфелем активов и потенциалом роста.',
+    #         'query_date': '2023-06-25',
+    #         'feedback': 'True'
+    #     },
+    #     {
+    #         'query': 'Second query',
+    #         'output': 'Second output',
+    #         'query_date': '2023-06-26',
+    #         'feedback': 'Second feedback'
+    #     },
+    #     {
+    #         'query': 'Third query',
+    #         'output': 'Third output',
+    #         'query_date': '2023-06-27',
+    #         'feedback': 'Third feedback'
+    #     }
+    # ]
+    # context['data'] = data
+    if request.session.get('user_group') == 'DEVELOPER':
+        context['data'] = collect_query_history()
 
     return render(request, 'personal_page.html', context=context)
 
@@ -94,7 +97,7 @@ def logout(request):
     try:
         del request.session['is_auth']
         del request.session['login']
-        del request.session['group']
+        del request.session['user_group']
     except Exception:
         print("Ошибка удалении сессии")
     return redirect('home')
