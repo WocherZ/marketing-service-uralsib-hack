@@ -47,6 +47,9 @@ class QueryHistory(models.Model):
     query_date = models.DateTimeField(default=timezone.now())
     feedback = models.CharField(max_length=8, choices=FEEDBACK_CHOICES, null=True)
 
+    def __str__(self):
+        return self.query + " " + str(self.query_date)
+
 
 def create_query_history_record(query, output):
     record = QueryHistory(query=query, output=output)
