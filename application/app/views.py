@@ -63,31 +63,10 @@ def personal_page(request):
             create_query_history_record(description, output)
         else:
             error = 'Ошибка заполнения формы'
+        return redirect('personal_page')
 
     context = {'form': form, 'error': error, 'output': output}
 
-    # добавил для отладки
-    # data = [
-    #     {
-    #         'query': 'Инвестиционный фонд с разнообразным портфелем активов, включающим акции, облигации, сырьевые товары и криптовалюты. Фонд предлагает высокую степень диверсификации и потенциал роста в различных секторах экономики.',
-    #         'output': 'Инвестиционный фонд с разнообразным портфелем активов и потенциалом роста.',
-    #         'query_date': '2023-06-25',
-    #         'feedback': 'True'
-    #     },
-    #     {
-    #         'query': 'Second query',
-    #         'output': 'Second output',
-    #         'query_date': '2023-06-26',
-    #         'feedback': 'Second feedback'
-    #     },
-    #     {
-    #         'query': 'Third query',
-    #         'output': 'Third output',
-    #         'query_date': '2023-06-27',
-    #         'feedback': 'Third feedback'
-    #     }
-    # ]
-    # context['data'] = data
     if request.session.get('user_group') == 'DEVELOPER':
         context['data'] = collect_query_history()
 

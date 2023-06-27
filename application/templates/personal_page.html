@@ -36,7 +36,7 @@
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
-      margin-bottom: 50px;
+      margin-bottom: 20px;
       box-sizing: border-box;
     }
 
@@ -67,9 +67,15 @@
       margin: 0;
     }
 
-    #output {
-      margin-top: 20px;
-    }
+  #output {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333333;
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
 
     .submit-container {
       display: flex;
@@ -156,6 +162,7 @@
         <button type="submit" class="button">Сгенерировать название продукта</button>
       </div>
     </form>
+    <p></p>
     <div id="output">
       {{ output }}
     </div>
@@ -163,3 +170,13 @@
 
 </body>
 </html>
+
+<script>
+  // JavaScript code to hide the border of #output if it is empty
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const output = document.getElementById('output');
+    if (output.innerHTML.trim() === '') {
+      output.style.border = 'none';
+    }
+  });
+</script>
