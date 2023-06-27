@@ -15,3 +15,7 @@ class LoginForm(forms.Form):
 class GetMarketingProductForm(forms.Form):
     # product_description = forms.Textarea(attrs={'placeholder': 'Введите описание продукта'})
     product_description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Введите описание продукта'}))
+
+class GetFeedback(forms.Form):
+    like = forms.BooleanField(widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Like'}))
+    dislike = forms.BooleanField()

@@ -67,19 +67,33 @@
       margin: 0;
     }
 
-  #output {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333333;
-    text-align: left;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+    #output {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333333;
+      text-align: left;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
     .submit-container {
       display: flex;
       justify-content: center;
+    }
+
+        .feedback-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .feedback-buttons .button {
+      margin: 0 5px;
+    }
+
+    .feedback-buttons .button i {
+      margin-right: 5px;
     }
 
     table {
@@ -106,6 +120,13 @@
       font-weight: bold;
       color: #6440bf;
       padding: 10px;
+    }
+
+    #response-message {
+      font-size: 18px;
+      font-weight: bold;
+      color: #6440bf;
+      margin-top: 20px;
     }
 
   </style>
@@ -171,9 +192,31 @@
     <div id="output">
       {{ output }}
     </div>
+    <div class="feedback-buttons">
+<!--      {{form.like}}-->
+<!--      {{form.dislike}}-->
+      <button class="button" id="like-button"><i class="fas fa-thumbs-up"></i>LIKE</button>
+      <button class="button" id="dislike-button"><i class="fas fa-thumbs-down"></i>DISLIKE</button>
+    </div>
+    <div id="response-message"></div>
   </div>
   <script>
-    // JavaScript code to hide the border of #output if it is empty
+    var likeButton = document.getElementById('like-button');
+    var dislikeButton = document.getElementById('dislike-button');
+    var responseMessage = document.getElementById('response-message');
+
+    likeButton.addEventListener('click', function() {
+      likeButton.style.display = 'none';
+      dislikeButton.style.display = 'none';
+      responseMessage.textContent = 'Thanks for your response';
+    });
+
+    dislikeButton.addEventListener('click', function() {
+      likeButton.style.display = 'none';
+      dislikeButton.style.display = 'none';
+      responseMessage.textContent = 'Thanks for your response';
+    });
+
     window.addEventListener('DOMContentLoaded', (event) => {
       const output = document.getElementById('output');
       if (output.innerHTML.trim() === '') {
