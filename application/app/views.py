@@ -63,13 +63,10 @@ def personal_page(request):
             create_query_history_record(description, output)
         else:
             error = 'Ошибка заполнения формы'
-        return redirect('personal_page')
 
     context = {'form': form, 'error': error, 'output': output}
-
     if request.session.get('user_group') == 'DEVELOPER':
         context['data'] = collect_query_history()
-
     return render(request, 'personal_page.html', context=context)
 
 def logout(request):

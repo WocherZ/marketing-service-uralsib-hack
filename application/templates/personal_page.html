@@ -159,24 +159,27 @@
     <form method="POST">
       {{ form.product_description }}
       <div class="submit-container">
-        <button type="submit" class="button">Сгенерировать название продукта</button>
+        <button type="submit" class="button" id="generate-btn">Сгенерировать название продукта</button>
       </div>
     </form>
+    <script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+    </script>
     <p></p>
     <div id="output">
       {{ output }}
     </div>
   </div>
-
+  <script>
+    // JavaScript code to hide the border of #output if it is empty
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const output = document.getElementById('output');
+      if (output.innerHTML.trim() === '') {
+        output.style.border = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
-
-<script>
-  // JavaScript code to hide the border of #output if it is empty
-  window.addEventListener('DOMContentLoaded', (event) => {
-    const output = document.getElementById('output');
-    if (output.innerHTML.trim() === '') {
-      output.style.border = 'none';
-    }
-  });
-</script>
