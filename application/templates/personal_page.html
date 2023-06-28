@@ -180,7 +180,7 @@
     <form method="POST">
       {{ form.product_description }}
       <div class="submit-container">
-        <button type="submit" class="button" id="generate-btn">Сгенерировать название продукта</button>
+        <button type="submit" class="button" id="generate-btn">Сгенерировать название и рекламу продукта</button>
       </div>
     </form>
     <script>
@@ -212,13 +212,13 @@
     likeButton.addEventListener('click', function() {
       likeButton.style.display = 'none';
       dislikeButton.style.display = 'none';
-      responseMessage.textContent = 'Thanks for your response';
+      responseMessage.textContent = 'Спасибо за оценку! Это помогает нам становиться лучше.';
     });
 
     dislikeButton.addEventListener('click', function() {
       likeButton.style.display = 'none';
       dislikeButton.style.display = 'none';
-      responseMessage.textContent = 'Thanks for your response';
+      responseMessage.textContent = 'Спасибо за оценку! Это помогает нам становиться лучше.';
     });
 
     window.addEventListener('DOMContentLoaded', (event) => {

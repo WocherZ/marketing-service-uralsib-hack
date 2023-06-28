@@ -66,5 +66,5 @@ def collect_query_history():
             'query_date': record.query_date,
             'feedback': record.feedback
         })
-    return all_history
+    return all_history[-5:]
 
