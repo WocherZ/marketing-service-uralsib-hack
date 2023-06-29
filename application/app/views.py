@@ -5,6 +5,7 @@ import requests
 
 from .forms import *
 from .models import *
+from .model_script import *
 
 def home(request):
     return render(request, 'home.html')
@@ -59,7 +60,12 @@ def personal_page(request):
             # TODO - отправка description в api модели
             # response = requests.post(API_MODEL_URL, json={'text': description})
             # output = response.json().get('json').get('output')
-            output = "# TODO - здесь будет выход модели"
+
+            name = get_name_by_model(description)
+            advertisment = get_advertisment(description)
+            output = name + "\n" + advertisment
+
+            #output = "# TODO - здесь будет выход модели"
             create_query_history_record(description, output)
         else:
             error = 'Ошибка заполнения формы'
