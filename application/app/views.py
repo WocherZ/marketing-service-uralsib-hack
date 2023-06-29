@@ -77,3 +77,6 @@ def logout(request):
     except Exception:
         print("Ошибка удалении сессии")
     return redirect('home')
+
+def ab_tests(request):
+    return render(request, 'ab_tests.html')

@@ -137,6 +137,7 @@
     {% if request.session.is_auth %}
     <div>
       <a href="{% url 'personal_page' %}" class="button">Личный кабинет</a>
+      <a href="{% url 'ab_tests' %}" class="button">А/В тесты</a>
       <a href="{% url 'logout' %}" class="button">Выйти</a>
     </div>
     {% else %}

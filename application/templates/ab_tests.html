@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A/B Tests</title>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #6440bf;
+      margin-bottom: 20px;
+    }
+
+    .button-container {
+      margin-bottom: 20px;
+      background-color: #f2f2f2;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #6440bf;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #512f9e;
+    }
+
+    .box-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: #f2f2f2;
+      border: 2px solid #6440bf;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      perspective: 1000px;
+      margin: 0 10px;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+    }
+
+    .box.flip {
+      transform: rotateY(180deg);
+    }
+
+    .box .front {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+    },
+
+    .box .back {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+      transform: rotateY(180deg);
+    }
+
+    .box .back {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 20px;
+      text-align: center;
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="button-container">
+    <a href="{% url 'home' %}" class="button">Главная</a>
+    {% if request.session.is_auth %}
+    <div>
+      <a href="{% url 'personal_page' %}" class="button">Личный кабинет</a>
+      <a href="{% url 'ab_tests' %}" class="button">А/В тесты</a>
+      <a href="{% url 'logout' %}" class="button">Выйти</a>
+    </div>
+    {% else %}
+    <div>
+      <a href="{% url 'authorization' %}" class="button">Авторизация</a>
+      <a href="{% url 'register' %}" class="button">Регистрация</a>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="container">
+    <h1>A/B тесты</h1>
+
+    <div class="box-container">
+      <div class="box">
+        <div class="front">
+          <h2>Тест 1</h2>
+        </div>
+        <div class="back">
+          <h2>Описание</h2>
+          <p>Additional text for Test 1</p>
+        </div>
+      </div>
+      <div class="box">
+        <div class="front">
+          <h2>Тест 2</h2>
+        </div>
+        <div class="back">
+          <h2>Описание</h2>
+          <p>Additional text for Test 2</p>
+        </div>
+      </div>
+      <div class="box">
+        <div class="front">
+          <h2>Тест 3</h2>
+        </div>
+        <div class="back">
+          <h2>Описание</h2>
+          <p>Additional text for Test 3</p>
+        </div>
+      </div>
+      <div class="box">
+        <div class="front">
+          <h2>Тест 4</h2>
+        </div>
+        <div class="back">
+          <h2>Описание</h2>
+          <p>Additional text for Test 4</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const boxes = document.querySelectorAll('.box');
+
+    boxes.forEach(box => {
+      box.addEventListener('click', () => {
+        box.classList.toggle('flip');
+        const front = box.querySelector('.front');
+        const back = box.querySelector('.back');
+
+        if (box.classList.contains('flip')) {
+          front.style.display = 'none';
+          back.style.display = 'block';
+        } else {
+          front.style.display = 'flex';
+          back.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

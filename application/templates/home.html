@@ -52,6 +52,40 @@
     .button:hover {
       background-color: #512f9e;
     }
+
+    .bubbles {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+
+    .bubble {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 170px;
+    }
+
+  .bubble-icon {
+    font-size: 32px;
+    color: #6440bf;
+    margin-bottom: 10px;
+    border: 2px solid #6440bf;
+    border-radius: 50%;
+    padding: 6px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+    .bubble-text {
+      text-align: center;
+      padding: 10px;
+      border: 2px solid #6440bf;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -60,6 +94,7 @@
     {% if request.session.is_auth %}
     <div>
       <a href="{% url 'personal_page' %}" class="button">Личный кабинет</a>
+      <a href="{% url 'ab_tests' %}" class="button">А/В тесты</a>
       <a href="{% url 'logout' %}" class="button">Выйти</a>
     </div>
     {% else %}
@@ -68,25 +103,39 @@
       <a href="{% url 'register' %}" class="button">Регистрация</a>
     </div>
     {% endif %}
-
   </div>
 
   <div class="container">
-    <h1>Генератор описаний и банковских продуктов</h1>
+    <h1>Приведи свой маркетинг на новый уровень!</h1>
     <p></p>
 
-    <h2>Инструкция</h2>
-    <p>Для генерации текста необходимо зарегистрироваться или войти в существующий аккаунт.</p>
-    <p>Далее необходимо ввести подробное описание продукта, который вы хотите сгенерировать.</p>
-    <p>После нажатия на кнопку "Сгенерировать название продукта" будет выдан
-      сгенерированный вариант названия продукта и его описания.</p>
-    <p>Данный продукт на основе генеративной модели может помочь маркетологам и составителям рекламы, автоматизировав их работу.</p>
+    <h2>Описание</h2>
+    <p>Уникальный инструмент для эффективного маркетинга и А/В-тестирования.</p>
+    <p>Генерируйте персонализированную рекламу, проводите А/В-тесты и анализируйте результаты - всё в одном мощном инструменте.</p>
 
-    <h2>Наша команда</h2>
-    <p>Зворыгин Владимир</p>
-    <p>Миронов Андрей</p>
-    <p>Мирзоева Айсел</p>
-    <p>Тимур</p>
+    <h2>Преимущества продукта:</h2>
+    <div class="bubbles">
+      <div class="bubble">
+        <span class="bubble-icon">&#x2714;</span>
+        <p class="bubble-text">Максимизируйте отдачу от ваших маркетинговых усилий</p>
+      </div>
+      <div class="bubble">
+        <span class="bubble-icon">&#x2714;</span>
+        <p class="bubble-text">Создавайте персонализированные рекламные кампании для разных сегментов аудитории</p>
+      </div>
+      <div class="bubble">
+        <span class="bubble-icon">&#x2714;</span>
+        <p class="bubble-text">Экономьте время и ресурсы, автоматизируя процесс маркетингового тестирования</p>
+      </div>
+      <div class="bubble">
+        <span class="bubble-icon">&#x2714;</span>
+        <p class="bubble-text">Анализируйте результаты и принимайте обоснованные решения на основе данных</p>
+      </div>
+      <div class="bubble">
+        <span class="bubble-icon">&#x2714;</span>
+        <p class="bubble-text">Проводите А/В-тесты для оценки эффективности вариантов контента</p>
+      </div>
+    </div>
   </div>
 </body>
 </html>
