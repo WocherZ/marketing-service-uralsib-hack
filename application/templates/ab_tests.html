@@ -168,30 +168,39 @@
 
   <script>
     const boxes = document.querySelectorAll('.box');
+    let clickedCard = null;
 
     boxes.forEach(box => {
-      let flipTimer;
       const front = box.querySelector('.front');
       const back = box.querySelector('.back');
 
       box.addEventListener('mouseenter', () => {
-        clearTimeout(flipTimer);
-        flipTimer = setTimeout(() => {
-          box.classList.add('flip');
-          front.style.display = 'none';
-          back.style.display = 'block';
-        }, 200); // Adjust the delay as needed (in milliseconds)
+        box.classList.add('flip');
+        front.style.display = 'none';
+        back.style.display = 'block';
       });
 
       box.addEventListener('mouseleave', () => {
-        clearTimeout(flipTimer);
-        flipTimer = setTimeout(() => {
-          box.classList.remove('flip');
-          front.style.display = 'flex';
-          back.style.display = 'none';
-        }, 200); // Adjust the delay as needed (in milliseconds)
+        box.classList.remove('flip');
+        front.style.display = 'flex';
+        back.style.display = 'none';
+      });
+
+      box.addEventListener('click', () => {
+        if (clickedCard === box) {
+          clickedCard = null;
+          box.style.borderColor = '#6440bf';
+        } else {
+          if (clickedCard) {
+            clickedCard.style.borderColor = '#6440bf';
+          }
+          clickedCard = box;
+          box.style.borderColor = 'green';
+        }
       });
     });
   </script>
+
+
 </body>
 </html>
