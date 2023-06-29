@@ -137,7 +137,6 @@
     {% if request.session.is_auth %}
     <div>
       <a href="{% url 'personal_page' %}" class="button">Личный кабинет</a>
-      <a href="{% url 'ab_tests' %}" class="button">А/В тесты</a>
       <a href="{% url 'logout' %}" class="button">Выйти</a>
     </div>
     {% else %}
@@ -194,8 +193,6 @@
       {{ output }}
     </div>
     <div class="feedback-buttons">
-<!--      {{form.like}}-->
-<!--      {{form.dislike}}-->
       <button class="button" id="like-button">
         <i class="fas fa-thumbs-up"></i>LIKE
       </button>
@@ -204,6 +201,10 @@
       </button>
     </div>
     <div id="response-message"></div>
+
+    <div class="AB-tests">
+      <a href="{% url 'ab_tests' %}" class="button">А/В тесты</a>
+    </div>
   </div>
   <script>
     var likeButton = document.getElementById('like-button');

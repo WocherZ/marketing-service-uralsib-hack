@@ -124,7 +124,7 @@
   </div>
 
   <div class="container">
-    <h1>A/B тесты</h1>
+    <h1>Бесполезная страница</h1>
 
     <div class="box-container">
       <div class="box">
@@ -170,18 +170,26 @@
     const boxes = document.querySelectorAll('.box');
 
     boxes.forEach(box => {
-      box.addEventListener('click', () => {
-        box.classList.toggle('flip');
-        const front = box.querySelector('.front');
-        const back = box.querySelector('.back');
+      let flipTimer;
+      const front = box.querySelector('.front');
+      const back = box.querySelector('.back');
 
-        if (box.classList.contains('flip')) {
+      box.addEventListener('mouseenter', () => {
+        clearTimeout(flipTimer);
+        flipTimer = setTimeout(() => {
+          box.classList.add('flip');
           front.style.display = 'none';
           back.style.display = 'block';
-        } else {
+        }, 200); // Adjust the delay as needed (in milliseconds)
+      });
+
+      box.addEventListener('mouseleave', () => {
+        clearTimeout(flipTimer);
+        flipTimer = setTimeout(() => {
+          box.classList.remove('flip');
           front.style.display = 'flex';
           back.style.display = 'none';
-        }
+        }, 200); // Adjust the delay as needed (in milliseconds)
       });
     });
   </script>
