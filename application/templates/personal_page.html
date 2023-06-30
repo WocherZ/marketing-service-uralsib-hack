@@ -13,9 +13,29 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .container .AB-tests .button {
+      display: none;
+    }
+
+    .left-side,
+    .right-side {
+      flex-basis: 50%;
+    }
+
+    .left-side {
+      padding-right: 20px;
+    }
+
+    .right-side {
+      padding-left: 20px;
     }
 
     h1 {
@@ -82,10 +102,11 @@
       justify-content: center;
     }
 
-        .feedback-buttons {
+    .feedback-buttons {
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-top: 20px;
     }
 
     .feedback-buttons .button {
@@ -99,6 +120,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-bottom: 20px;
     }
 
     th, td {
@@ -148,8 +170,6 @@
   </div>
 
   <div class="container">
-    <h1>Личный кабинет</h1>
-
     {% if request.session.user_group == 'DEVELOPER' %}
     <table>
       <caption>История запросов</caption>
@@ -175,53 +195,65 @@
       {% endfor %}
     </table>
     <p></p>
-    {% else %}
     {% endif %}
-    <form method="POST">
-      {{ form.product_description }}
-      <div class="submit-container">
-        <button type="submit" class="button" id="generate-btn">Сгенерировать название и рекламу продукта</button>
-      </div>
-    </form>
-    <script>
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-    }
-    </script>
-    <p></p>
-    <div id="output">
-      {{ output }}
-    </div>
-    <div class="feedback-buttons">
-      <button class="button" id="like-button">
-        <i class="fas fa-thumbs-up"></i>LIKE
-      </button>
-      <button class="button" id="dislike-button">
-        <i class="fas fa-thumbs-down"></i>DISLIKE
-      </button>
-    </div>
-    <div id="response-message"></div>
+  </div>
 
-    <div class="AB-tests">
-      <a href="{% url 'ab_tests' %}" class="button">А/В тесты</a>
+  <div class="container">
+    <div class="left-side">
+      <form method="POST">
+        {{ form.product_description }}
+        <div class="submit-container">
+          <button type="submit" class="button" id="generate-btn">Сгенерировать название и рекламу продукта</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="right-side">
+      <div id="output">
+          Название продукта
+      </div>
+      <div id="output">
+        Реклама
+        {{ output }}
+      </div>
+      <div class="feedback-buttons">
+        <button class="button" id="like-button">
+          <i class="fas fa-thumbs-up"></i>Сохранить
+        </button>
+        <button class="button" id="dislike-button">
+          <i class="fas fa-thumbs-down"></i>Сбросить
+        </button>
+      </div>
+      <div id="response-message"></div>
     </div>
   </div>
+
+  <div class="container">
+    <div class="AB-tests">
+      <a href="{% url 'ab_tests' %}" class="button" id="abtests">Перейти к А/В тестам</a>
+    </div>
+  </div>
+
   <script>
     var likeButton = document.getElementById('like-button');
     var dislikeButton = document.getElementById('dislike-button');
     var responseMessage = document.getElementById('response-message');
+    var abtests = document.getElementById('abtests');
 
     likeButton.addEventListener('click', function() {
       likeButton.style.display = 'none';
       dislikeButton.style.display = 'none';
-      responseMessage.textContent = 'Спасибо за оценку! Это помогает нам становиться лучше.';
+      responseMessage.textContent = 'Сохранено!';
+      abtests.style.display = 'block';
     });
 
     dislikeButton.addEventListener('click', function() {
       likeButton.style.display = 'none';
       dislikeButton.style.display = 'none';
-      responseMessage.textContent = 'Спасибо за оценку! Это помогает нам становиться лучше.';
+      location.reload();
     });
+
+<!--  перегенерация текста  -->
 
     window.addEventListener('DOMContentLoaded', (event) => {
       const output = document.getElementById('output');
