@@ -4,15 +4,14 @@ from langchain.schema import (
     SystemMessage
 )
 from langchain.chat_models import ChatOpenAI
-
-API_KEY = "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"
+from .local_settings import OPENAI_API_KEY
 
 PROMPT_NAME = "Продукт является [функционал, характеристика, качество и т.д.] и предназначен для [целевая аудитория, использование и т.д.]. Пожалуйста, сгенерируйте креативное название для этого продукта."
 
 PROMPT_ADVERTISMENT = "Мы разработали уникальный продукт, который [описание преимущества или проблемы, которую он решает]. Наш продукт обладает [характеристики или функции продукта]. Он идеально подходит для [целевая аудитория] и поможет вам [достижение цели или решение проблемы]. Доверьтесь нашему продукту и получите [выгода или результат от использования продукта]"
 
 def get_answer_by_model(prompt, input):
-    chat = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.3, openai_api_key=API_KEY)
+    chat = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.3, openai_api_key=OPENAI_API_KEY)
     messages = [
         SystemMessage(content=prompt),
         HumanMessage(content=input)

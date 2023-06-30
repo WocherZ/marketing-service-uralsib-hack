@@ -61,11 +61,21 @@ def personal_page(request):
             # response = requests.post(API_MODEL_URL, json={'text': description})
             # output = response.json().get('json').get('output')
 
-            name = get_name_by_model(description)
-            advertisment = get_advertisment(description)
-            output = name + "\n" + advertisment
+            # name = get_name_by_model(description)
+            # advertisment = get_advertisment(description)
+            # output = name + "\n" + advertisment
 
             #output = "# TODO - здесь будет выход модели"
+
+            res = requests.post("https://f721-46-172-32-24.eu.ngrok.io/predict",
+                                json={
+                                    "text": description})
+            json = res.json()
+
+            title = json.get('title')
+
+            advertisement = json.get('advertisement')
+            output = title + "\n" + advertisement
             create_query_history_record(description, output)
         else:
             error = 'Ошибка заполнения формы'
