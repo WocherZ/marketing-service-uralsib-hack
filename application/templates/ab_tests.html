@@ -13,7 +13,7 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 40px;
     }
@@ -21,6 +21,11 @@
     h1 {
       color: #6440bf;
       margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #6440bf;
+      font-size: 25px;
     }
 
     .button-container {
@@ -48,12 +53,13 @@
 
     .box-container {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       margin-top: 40px;
     }
 
     .box {
-      width: 200px;
+      width: calc(50% - 20px);
       height: 200px;
       background-color: #f2f2f2;
       border: 2px solid #6440bf;
@@ -61,7 +67,7 @@
       cursor: pointer;
       transition: transform 0.3s ease;
       perspective: 1000px;
-      margin: 0 10px;
+      margin-bottom: 20px;
     }
 
     .box:hover {
@@ -104,6 +110,20 @@
       text-align: center;
       transform: rotateY(180deg);
     }
+
+    .question {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .radio-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .radio-button {
+      margin: 0 10px;
+    }
   </style>
 </head>
 <body>
@@ -124,69 +144,96 @@
   </div>
 
   <div class="container">
-    <h1>(Бес)полезная страница</h1>
+    <h1>А/В-тестирование</h1>
 
     <div class="box-container">
       <div class="box">
         <div class="front">
-          <h2>Критерий Колмогорова</h2>
+          <h2>Оценка эффективности контента</h2>
         </div>
         <div class="back">
-          <h2>Описание</h2>
-          <p>Additional text for Test 1</p>
+          <p>А/В тестирование позволяет сравнить несколько вариантов контента (например, рекламных баннеров, текстов или макетов)
+            и определить, какой из них наиболее эффективен. Задача состоит в том, чтобы выяснить, какой контент привлекает больше внимания,
+            генерирует больше кликов или конверсий.</p>
         </div>
       </div>
       <div class="box">
         <div class="front">
-          <h2>Тест Харке-Бера</h2>
+          <h2>Оптимизация целевой аудитории</h2>
         </div>
         <div class="back">
-          <h2>Описание</h2>
-          <p>Additional text for Test 2</p>
+          <p>А/В тестирование может помочь определить, какие сегменты аудитории реагируют лучше на разные варианты контента.
+            Задача состоит в том, чтобы идентифицировать наиболее отзывчивые группы адаптировать рекламу и контент под
+            их потребности и предпочтения.</p>
         </div>
       </div>
       <div class="box">
         <div class="front">
-          <h2>Тест 3</h2>
+          <h2>Тестирование гипотез и предложений</h2>
         </div>
         <div class="back">
-          <h2>Описание</h2>
-          <p>Additional text for Test 3</p>
+          <p>А/В тестирование позволяет проверить различные гипотезы и преложения, чтобы определить, какое из них
+            наиболее привлекательно для аудитории. Задача состоит в том, чтобы определить, какие предложения или изменения в продукте
+            или услуге могут увеличить вероятность отклика клиентов.</p>
         </div>
       </div>
       <div class="box">
         <div class="front">
-          <h2>Тест 4</h2>
+          <h2>Определение оптимальных параметров</h2>
         </div>
         <div class="back">
-          <h2>Описание</h2>
-          <p>Additional text for Test 4</p>
+          <p>А/В тестирование может быть использовано для определения оптимальных параметров, таких как время экспозиции контента
+            или процентное соотношение распределения трафика между вариантами контента. Задача состоит в том, чтобы
+            определить оптимальные условия для достижения максимального эффекта и результатов.</p>
         </div>
       </div>
     </div>
+
+    <div class="question-container">
+      <div class="question">
+        <h3>Гипотеза</h3>
+        <input type="radio" name="question1" value="low" id="q1-low">
+        <label for="q1-low">Односторонняя</label>
+        <input type="radio" name="question1" value="medium" id="q1-medium">
+        <label for="q1-medium">Двухсторонняя</label>
+      </div>
+      <div class="question">
+        <h3>Уровень доверия</h3>
+        <input type="radio" name="question2" value="low" id="q2-low">
+        <label for="q2-low">90%</label>
+        <input type="radio" name="question2" value="medium" id="q2-medium">
+        <label for="q2-medium">95%</label>
+        <input type="radio" name="question2" value="high" id="q2-high">
+        <label for="q2-high">99%</label>
+      </div>
+    </div>
   </div>
-
-
-
 
   <script>
     const boxes = document.querySelectorAll('.box');
     let clickedCard = null;
 
     boxes.forEach(box => {
+      let flipTimer;
       const front = box.querySelector('.front');
       const back = box.querySelector('.back');
 
       box.addEventListener('mouseenter', () => {
-        box.classList.add('flip');
-        front.style.display = 'none';
-        back.style.display = 'block';
+        clearTimeout(flipTimer);
+        flipTimer = setTimeout(() => {
+          box.classList.add('flip');
+          front.style.display = 'none';
+          back.style.display = 'block';
+        }, 200);
       });
 
       box.addEventListener('mouseleave', () => {
-        box.classList.remove('flip');
-        front.style.display = 'flex';
-        back.style.display = 'none';
+        clearTimeout(flipTimer);
+        flipTimer = setTimeout(() => {
+          box.classList.remove('flip');
+          front.style.display = 'flex';
+          back.style.display = 'none';
+        }, 200); // Adjust the delay as needed (in milliseconds)
       });
 
       box.addEventListener('click', () => {
@@ -203,7 +250,5 @@
       });
     });
   </script>
-
-
 </body>
 </html>
